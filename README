@@ -1,0 +1,5 @@
+# Useful Bash-Programs
+This is a colletion of all my python scripts and their corresponding bash files.
+
+To execute the bash files as commands and hence run the python scripts:
+Move (or better softlink) the bash files to /usr/local/bin and make them executable (sudo chmod +x).
