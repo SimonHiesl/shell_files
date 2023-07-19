@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 ~/.shell_files/wordlestats.py ${1:-trace} ${2:-0}
+python3 ~/.shell_files/python_files/wordlestats.py ${1:-trace} ${2:-0}

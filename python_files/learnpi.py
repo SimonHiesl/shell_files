@@ -1,13 +1,10 @@
-from mpmath import mp
 import numpy as np
 import datetime as dt
 import sys
 
-table =  np.genfromtxt("/home/simon/.shell_files/.input_files/hun.csv", delimiter=',', dtype= str)[:,1:]
+table =  np.genfromtxt("/home/simon/.shell_files/input_files/hun.csv", delimiter=',', dtype= str)[:,1:]
 
-mp.dps = 1+10000
-int_pi = mp.pi
-pi = str(int_pi)[2:]
+pi = str(np.genfromtxt("/home/simon/.shell_files/input_files/pi.txt", dtype=str))
 
 def give_pao(n1, n2, place):
     return str(table[int(n1)+3*int(n1)+1+place, int(n2)])

@@ -1,11 +1,8 @@
-from mpmath import mp
 import numpy as np
 import datetime as dt
 import sys
 
-mp.dps = 1+10000
-int_pi = mp.pi
-pi = str(int_pi)[2:]
+pi = str(np.genfromtxt("/home/simon/.shell_files/input_files/pi.txt", dtype=str))
 
 def pao(w_pos, start_digit):
     if w_pos % 6 == 0:
