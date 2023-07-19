@@ -1,0 +1,3 @@
+cp ~/Downloads/PAO\ -\ AA-XX.csv /home/simon/Desktop/Freizeit/Memory/PAO/pao.csv
+mv ~/Downloads/PAO\ -\ AA-XX.csv /home/simon/.shell_files/.input_files/pao.csv
+python3 ~/Desktop/Freizeit/Memory/PAO/pao.py

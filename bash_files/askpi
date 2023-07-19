@@ -1,0 +1,2 @@
+#!/bin/bash
+python3 ~/.shell_files/askpi.py ${1:-0} ${2:-20}

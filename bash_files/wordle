@@ -1,0 +1,2 @@
+#!/bin/bash
+python3 ~/.shell_files/wordle.py $1 $2

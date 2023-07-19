@@ -1,0 +1,2 @@
+#!/bin/bash
+python3 ~/.shell_files/paorow.py ${1:-A}

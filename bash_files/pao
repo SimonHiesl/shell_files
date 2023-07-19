@@ -1,0 +1,2 @@
+#!/bin/bash
+python3 ~/.shell_files/pao.py ${1:-A} ${2:-X} ${3:-c}
