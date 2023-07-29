@@ -54,7 +54,7 @@ def messenger(key, text):
     return encrypt(key, text)
 
 def type_message():
-    print('Typ a message:')
+    print('Type a message:')
     global shared_key
     i=1
     while i>0:
