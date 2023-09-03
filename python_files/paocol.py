@@ -56,6 +56,7 @@ def ask_pao(letter):
     ask_column = get_column(letter)
     times = []
     total = 0
+    dnf_count = 0
     print("Push ENTER to start the timer!")
     inp = input()
     if len(inp) == 0:
@@ -66,28 +67,37 @@ def ask_pao(letter):
             total += 1
             inp = input()
             stop = dt.now()
-            if len(inp) == 0:
+            time = round(get_seconds(stop-start),2)
+            if len(inp) != 0 and inp != "n":
                 for j in range(3):
-                    print("\033[32m" + str(table[4*BLD.index(ask_column[i][0])+j+1, BLD.index(str(letter))]) + "\033[0m")
-                times.append(round(get_seconds(stop-start),2))
-            elif str(inp) == "n":
+                    print(str(table[4*BLD.index(ask_column[i][0])+j+1, BLD.index(str(letter))]))
+                print(" ")
+                break
+            if inp == "n" or time >= 15.0:
                 for j in range(3):
                     print("\033[31m" + str(table[4*BLD.index(ask_column[i][0])+j+1, BLD.index(str(letter))]) + "\033[0m")
+                dnf_count += 1
                 times.append("DNF")
+            elif time >= 10.0:
+                for j in range(3):
+                    print("\033[33m" + str(table[4*BLD.index(ask_column[i][0])+j+1, BLD.index(str(letter))]) + "\033[0m")
+                times.append(time)
+            else:
+                for j in range(3):
+                    print("\033[32m" + str(table[4*BLD.index(ask_column[i][0])+j+1, BLD.index(str(letter))]) + "\033[0m")
+                times.append(time)
             print(" ")
-            print("In", round(get_seconds(stop-start),2), "seconds.\n")
-            if len(inp) != 0 and str(inp) != "n":
-                break
+            print("In", time, "seconds.\n")
     else: return print("Attempt aborted!")
     stop_global = dt.now()
-    print("You reviewed", total, "pairs.")
+    print("You reviewed", total, "pairs and got", total-dnf_count, "correct.")
     print("You took " + get_minutes(stop_global-start_global) + ".")
     if average(times) == "DNF":
         print("The average is a DNF!")
     elif average(times) == "To short for average.":
         print("To short for average.")
     else:
-        print("Average of", len(times), "is", average(times), "seconds.")
+        print("Average of", total, "is", average(times), "seconds.")
 
 def help():
     print("""Arguments must be passed in the order as shown:    [letter]

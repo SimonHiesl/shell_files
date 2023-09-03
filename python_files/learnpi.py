@@ -2,7 +2,7 @@ import numpy as np
 import datetime as dt
 import sys
 
-table =  np.genfromtxt("/home/simon/.shell_files/input_files/hun.csv", delimiter=',', dtype= str)[:,1:]
+table =  np.genfromtxt("/home/simon/.shell_files/input_files/pao0099.csv", delimiter=',', dtype= str)[:,1:]
 
 pi = str(np.genfromtxt("/home/simon/.shell_files/input_files/pi.txt", dtype=str))
 
