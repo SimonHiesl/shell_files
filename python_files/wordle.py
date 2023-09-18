@@ -5,6 +5,7 @@ import random as rd
 
 wordsstring = ''.join(np.genfromtxt("/home/simon/.shell_files/input_files/2309-wordle-words.txt", delimiter = " ", dtype=str))
 full_words = np.genfromtxt("/home/simon/.shell_files/input_files/valid-wordle-words.txt", dtype=str)
+old_words = np.genfromtxt("/home/simon/.shell_files/input_files/old-wordle-words.txt", dtype=str)
 abc = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 green = []
 yellow = []
@@ -179,6 +180,23 @@ def find_word(word_list):
     print("The best three possible words are:")
     return key_with_largest_value
 
+def find_word_without_old(word_list):
+    length = len(word_list)
+    letter_dict = count_letters(word_list)
+    weigth_dict = {}
+    for word in word_list:
+        count = 0
+        if len(set(word)) == 5:
+            for letter in word:
+                count += letter_dict.get(letter)
+        else:
+            for letter in word:
+                count += letter_dict.get(letter)//2
+        weigth_dict[word] = count
+    key_with_largest_value = sorted(weigth_dict, key=lambda x: weigth_dict[x])[-3:][::-1]
+    print(f"The best three possible words excluding already used words are (total {length}):")
+    return key_with_largest_value
+
 def help():
     print("""Arguments must be passed in the order as shown:    [words] [pos]
              - [words] in string, no spaces (no default).
@@ -187,6 +205,8 @@ def help():
 if(len(sys.argv) == 3 and check_word_list(str(sys.argv[1])) and check_int_list(str(sys.argv[2]))):
     print(order_words(wordle(make_word_list(str(sys.argv[1])), make_int_list(str(sys.argv[2])))), "\n")
     print(find_word_impossible(words), "\n")
-    print(find_word(words))
+    print(find_word(words), "\n")
+    words_without_olds = [item for item in words if item not in old_words]
+    print(find_word_without_old(words_without_olds))
 else:
     help()
