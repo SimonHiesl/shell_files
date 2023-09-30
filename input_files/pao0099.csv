@@ -1,11 +1,11 @@
 Superhelden,00,01,02,03,04,05,06,07,08,09
 Person,Aquaman,Batman,Deadpool,Electro,Flash,Groot,Hulk,Iron (Man),Joker,Kung (Fu Panda)
-Action,... mit Dreizack aufspießen,... mit Batmobile umfahren,... Beine nachwachsen lassen,... tasern,... umrennen,... mit Wurzeln umschlingen,... als Hulk smashen,Als Iron Man ... abwehren,... auf Bleistift aufspießen,... Kung fu kicken
+Action,... mit Dreizack aufspießen,... mit Batmobile umfahren,Beine mit ... nachwachsen lassen,... tasern,... umrennen,... aus Wurzeln lösen,... als Hulk smashen,Als Iron Man ... abwehren,... auf Bleistift aufspießen,... Kung fu kicken
 Object,Dreizack,Batmobile,Beine,Strommast,Goldener Blitz,Wurzeln,Grüne Faust,Archreaktor,Bleistift,Baozi
 Breaking Bad,10,11,12,13,14,15,16,17,18,19
-"Person,Andrea (Cantillo),""Brandon """"Badger"""" (Mayhew)"",Donald (Margolis),Elliott (Schwartz),(Gale Boetticher),(Saul) Goodman,Hank (Schrader),(Jane Margolis),Jesse (Pinkman),Krazy-8"
-Action,... mit Schalldämpferpistole abschießen,... aufpumpen,Auf ... mit Flugzeug hineinstürzen,... mit Laserpointer anleuchten,... mit Bunsenbrenner erhitzen,... Headset aufsetzen,... polieren,... mi Löffel füttern,... Mütze überziehen,Auf ... Pitbull loslassen
-Object,Schalldämpfer,Luftpumpe,Flugzeug,Laserpointer,Bunsenbrenner,Headset,Edelstein,Löffel,Mütze,Pitbull
+Person,Andrea (Cantillo),"Brandon ""Badger"" (Mayhew)",Donald (Margolis),Elliott (Schwartz),(Gale Boetticher),(Saul) Goodman,Hank (Schrader),(Jane Margolis),Jesse (Pinkman),Krazy-8
+Action,... mit Schalldämpferpistole abschießen,... aufpumpen,Auf ... mit Flugzeug hineinstürzen,... mit Laserpointer anleuchten,... mit Bunsenbrenner erhitzen,... Headset aufsetzen,... als Kristall züchten,... mit Löffel füttern,... Mütze überziehen,Auf ... Pitbull loslassen
+Object,Schalldämpfer,Luftpumpe,Flugzeug,Laserpointer,Bunsenbrenner,Headset,Bergkristall,Löffel,Mütze,Pitbull
 Walking Dead,20,21,22,23,24,25,26,27,28,29
 Person,Aaron,Beth,Darryl,Eugene,(Abraham) Ford,Governor,Hershel,(Yumiko),Judith,(Carl)
 Action,... mit Morgenstern zertrümmern,... mit Milchflasche stillen,... festzurren,... mit Drohne filmen,... mit Raketenwerfer explodieren,... mit Glasscherbe stechen,... mit Krücken schlagen,... in Reiskocher kochen,... in Babyschale herumtragen,... unter Hut hervorzeigen
@@ -24,7 +24,7 @@ Action,... Gesichtsmaske überziehen,... mit Daumen zerdrücken,Auf ... reiten,V
 Object,Gesichtsmaske,Ritterhelm,Drachen,Kopf,Kerze,Boot,Rucksack,Pfeil,Käfig,Leiter
 Harry Potter,60,61,62,63,64,65,66,67,68,69
 Person,Aberforth,Bellatrix,Dumbledore,Eroll,Filius Flitwick,Hagrid,Hermine,Igor (Karkaroff),(Lee) Jordan,Kreacher
-Action,... mit Lappen abwischen,... mit Ziegel schlagen,... als Portkey nutzen,Auf ... Scheibe fallen lassen,... Wingardium Leviosan,... mit Schirm vor Regen schützen,... in Buch verwandeln,Vor ... verstecken,... anfeuern,Über ... stolpern
+Action,... mit Lappen abwischen,... mit Ziegel schlagen,... als Portkey nutzen,Auf ... Scheibe fallen lassen,... Wingardium Leviosan,... mit Schirm vor Regen schützen,Buch in ... verwandeln,Vor ... verstecken,... anfeuern,Über ... stolpern
 Object,Lappen,Ziegelmauer,Phoenix,Scheibe,Weihnachtskugel,Pinker Regenschirm,Buch,Fellmantel,Mikrofon,Trollfuß
 Youtuber,70,71,72,73,74,75,76,77,78,79
 Person,Adam (Ragusea),Brody (the Cuber),Drachenlord,Elliott (Kobelansky),Fritz (Meinecke),Gordon (Ramsey),Held (der Steine),ImMarksman,John (Bartholomew),Knossi
@@ -38,3 +38,7 @@ Horror,90,91,92,93,94,95,96,97,98,99
 Person,Ashley,Beth,Dementor,Emily,Frankenstein,Ghostface,Hannibal (Lecter),(Jigsaw),Jason,(Freddy) Krueger
 Action,... mit Sägeblatt halbieren,... mit Öllampe beleuchten,... Seele aussaugen,... heraufbeschwören,... an Boden festschrauben,... zuzwinkern,... verschlucken,... mit Handsäge sägen,... auseinanderziehen,Von ... Fingerabdrücke nehmen
 Object,Sägeblatt,Öllampe,Schokoladentafel,Skelett,Schraube,Ghost Maske,Lunge,Handsäge,Hockeymaske,Abgetrennte Hand
+Star Wars,0,1,2,3,4,5,6,7,8,9
+Person,Anakin (Skywalker),Boba (Fett),(Count) Dooku,Ewok,Finn,General Grievous,Han (Solo),Imperator,Jar Jar (Binks),Kylo (Ren)
+Action,... in Lava verbrennen,An ... Jetpack befestigen,Auf ... Battle Droids hetzen,... mit At-St zerstampfen,... wie Toilettenpapier abwischen,... in Schraubstock fixieren,... hervorziehen,... herrscherblitzen,... mit Klebeband zukleben,... mit der Macht gegen den Boden
+Object,Lava,Jetpack,Battle Droid,At-St,Toilettenpapier,Schraubstock,Lego Millenium Falke,Todesstern,Klebeband,Regenbogen
