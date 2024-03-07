@@ -985,3 +985,8 @@ devil
 image
 forty
 urban
+state
+flame
+hunch
+teary
+clone

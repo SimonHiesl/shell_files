@@ -1,3 +1,0 @@
-#!/bin/bash
-zoom_file="/home/simon/.links/zoomtimo.txt"
-cat "$zoom_file" | xargs -I {} firefox "{}"

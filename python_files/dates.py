@@ -80,7 +80,6 @@ def ask_date(max_attempts, min_year, max_year):
                 times.append("DNF")
                 print("Wrong! The correct weekday is:", weekdays[weekday(date)]+".", "You took:", round(get_seconds(stop-start),2), "seconds.", "Anchor:", str(anchor(date[2]))+".\n")
         stop_global = datetime.now()
-        print("\n")
         print("You got", count, "of", global_count, "correct in", stop_global-start_global)
         if count > 1:
             print("Ratio:", round(get_seconds(stop_global-start_global)/count, 2), "Seconds/Date")
