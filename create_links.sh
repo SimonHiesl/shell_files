@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source_dir="/home/simon/.shell_files/bash_files"
+source_dir="/home/hiesl/shell_files/bash_files"
 target_dir="/usr/local/bin"
 
 # Navigate to the source directory

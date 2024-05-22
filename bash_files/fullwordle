@@ -1,2 +1,0 @@
-#!/bin/bash
-python3 ~/.shell_files/python_files/fullwordle.py $1 $2

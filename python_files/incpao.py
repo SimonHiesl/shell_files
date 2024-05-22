@@ -4,18 +4,18 @@ import random as rd
 import math
 import sys
 
-table = np.genfromtxt("/home/simon/.shell_files/input_files/pao.csv", delimiter=',', dtype= str)[:,1:]
+table = np.genfromtxt("/home/hiesl/shell_files/input_files/pao.csv", delimiter=',', dtype= str)[:,1:]
 BLD = ['A', 'B', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X']
 
 def read_list_from_txt():
     output_list = []
-    with open("/home/simon/.shell_files/input_files/incorrect_pao.txt", 'r') as file:
+    with open("/home/hiesl/shell_files/input_files/incorrect_pao.txt", 'r') as file:
         for line in file:
             output_list.append(line.strip())
     return output_list
 
 def clear_txt_file():
-    with open("/home/simon/.shell_files/input_files/incorrect_pao.txt", 'w') as file:
+    with open("/home/hiesl/shell_files/input_files/incorrect_pao.txt", 'w') as file:
         pass
 
 def get_seconds(time):

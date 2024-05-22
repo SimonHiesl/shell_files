@@ -4,7 +4,7 @@ import random as rd
 import math
 import sys
 
-table = np.genfromtxt("/home/simon/.shell_files/input_files/pao.csv", delimiter=',', dtype= str)[:,1:]
+table = np.genfromtxt("/home/hiesl/shell_files/input_files/pao.csv", delimiter=',', dtype= str)[:,1:]
 BLD = ['A', 'B', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X']
 
 def get_seconds(time):
