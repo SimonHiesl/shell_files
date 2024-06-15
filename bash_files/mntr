@@ -1,0 +1,27 @@
+#!/bin/bash
+
+usage() {
+    echo "Usage: $0 (edp, dp2, dp3, split, hdmi)"
+  exit 1
+}
+
+if [ $# -ne 1 ]; then
+  echo "Error: Exactly one argument is required."
+  usage
+fi
+
+input_string=$1
+
+if [ "$input_string" == "edp" ]; then
+  xrandr --output eDP-1 --primary --auto
+elif [ "$input_string" == "dp2" ]; then
+  xrandr --output eDP-1 --off --output DP-2 --primary --auto
+elif [ "$input_string" == "dp3" ]; then
+  xrandr --output eDP-1 --off --output DP-3 --primary --auto
+elif [ "$input_string" == "split" ]; then
+  xrandr --output eDP-1 --auto --output DP-3 --auto --right-of eDP-1
+elif [ "$input_string" == "hdmi" ]; then
+  xrandr --output eDP-1 --auto --output HDMI-1 --auto --right-of eDP-1
+else
+  echo "The input string is not supported."
+fi

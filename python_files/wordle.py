@@ -1,4 +1,3 @@
-#!/home/hiesl/venv/university/bin/python3
 import numpy as np
 import sys
 import random as rd
