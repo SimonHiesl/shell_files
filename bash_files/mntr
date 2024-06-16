@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage() {
-    echo "Usage: $0 (edp, dp2, dp3, split, hdmi)"
+    echo "Usage: $0 (edp, dp1, dp2, dp3, hdmi, split, off)"
   exit 1
 }
 
@@ -14,14 +14,20 @@ input_string=$1
 
 if [ "$input_string" == "edp" ]; then
   xrandr --output eDP-1 --primary --auto
+elif [ "$input_string" == "dp1" ]; then
+  xrandr --output eDP-1 --off --output DP-1 --primary --auto
 elif [ "$input_string" == "dp2" ]; then
   xrandr --output eDP-1 --off --output DP-2 --primary --auto
 elif [ "$input_string" == "dp3" ]; then
   xrandr --output eDP-1 --off --output DP-3 --primary --auto
-elif [ "$input_string" == "split" ]; then
-  xrandr --output eDP-1 --auto --output DP-3 --auto --right-of eDP-1
 elif [ "$input_string" == "hdmi" ]; then
   xrandr --output eDP-1 --auto --output HDMI-1 --auto --right-of eDP-1
+elif [ "$input_string" == "split" ]; then
+  xrandr --output eDP-1 --auto --output DP-3 --auto --right-of eDP-1
+elif [ "$input_string" == "off" ]; then
+  xrandr --output eDP-1 --auto --primary --output DP-1 --off --output DP-2 --off --output DP-3 --off --output HDMI-1 --off
 else
   echo "The input string is not supported."
 fi
+
+i3-msg restart
