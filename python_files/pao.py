@@ -41,12 +41,12 @@ def average(values):
     if len(values) <= 2:
         return "To short for average."
     num_bad = number - num_dnf
-    for i in range(num_dnf):
+    for _ in range(num_dnf):
         values.remove("DNF")
     values.sort()
-    for i in range(num_bad):
+    for _ in range(num_bad):
         values.pop(-1)
-    for i in range(number):
+    for _ in range(number):
         values.pop(0)
     return round(sum(values)/len(values),2)
 
@@ -60,7 +60,7 @@ def ask_rows(column_start, column_end, max_attempts):
     inp = input()
     if len(inp) == 0:
         start_global = dt.now()
-        for i in range(max_attempts):
+        for _ in range(max_attempts):
             lp1 = rd.choice(ask_BLD)
             lp2 = rd.choice(BLD)
             n1 = BLD.index(lp1)
@@ -77,13 +77,13 @@ def ask_rows(column_start, column_end, max_attempts):
                     print(str(table[4*n1+j+1, n2]))
                 print(" ")
                 break
-            if inp == "n" or time >= 15.0:
+            if inp == "n" or time >= 10.0:
                 for j in range(3):
                     print("\033[31m" + str(table[4*n1+j+1, n2]) + "\033[0m")
                 dnf_count += 1
                 times.append("DNF")
-                incorrect.appen(pair)
-            elif time >= 10.0:
+                incorrect.append(pair)
+            elif time >= 5.0:
                 for j in range(3):
                     print("\033[33m" + str(table[4*n1+j+1, n2]) + "\033[0m")
                 times.append(time)
@@ -115,7 +115,7 @@ def ask_columns(column_start, column_end, max_attempts):
     inp = input()
     if len(inp) == 0:
         start_global = dt.now()
-        for i in range(max_attempts):
+        for _ in range(max_attempts):
             lp1 = rd.choice(BLD)
             lp2 = rd.choice(ask_BLD)
             n1 = BLD.index(lp1)

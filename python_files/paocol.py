@@ -36,12 +36,12 @@ def average(values):
     if len(values) <= 2:
         return "To short for average."
     num_bad = number - num_dnf
-    for i in range(num_dnf):
+    for _ in range(num_dnf):
         values.remove("DNF")
     values.sort()
-    for i in range(num_bad):
+    for _ in range(num_bad):
         values.pop(-1)
-    for i in range(number):
+    for _ in range(number):
         values.pop(0)
     return round(sum(values)/len(values),2)
 
@@ -73,12 +73,12 @@ def ask_pao(letter):
                     print(str(table[4*BLD.index(ask_column[i][0])+j+1, BLD.index(str(letter))]))
                 print(" ")
                 break
-            if inp == "n" or time >= 15.0:
+            if inp == "n" or time >= 10.0:
                 for j in range(3):
                     print("\033[31m" + str(table[4*BLD.index(ask_column[i][0])+j+1, BLD.index(str(letter))]) + "\033[0m")
                 dnf_count += 1
                 times.append("DNF")
-            elif time >= 10.0:
+            elif time >= 5.0:
                 for j in range(3):
                     print("\033[33m" + str(table[4*BLD.index(ask_column[i][0])+j+1, BLD.index(str(letter))]) + "\033[0m")
                 times.append(time)
