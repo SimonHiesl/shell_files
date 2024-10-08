@@ -73,12 +73,12 @@ def ask_pao(letter):
                     print(str(table[4*BLD.index(str(letter))+j+1, BLD.index(ask_row[i][1])]))
                 print(" ")
                 break
-            if inp == "n" or time >= 15.0:
+            if inp == "n" or time >= 10.0:
                 for j in range(3):
                     print("\033[31m" + str(table[4*BLD.index(str(letter))+j+1, BLD.index(ask_row[i][1])]) + "\033[0m")
                 dnf_count += 1
                 times.append("DNF")
-            elif time >= 10.0:
+            elif time >= 5.0:
                 for j in range(3):
                     print("\033[33m" + str(table[4*BLD.index(str(letter))+j+1, BLD.index(ask_row[i][1])]) + "\033[0m")
                 times.append(time)
