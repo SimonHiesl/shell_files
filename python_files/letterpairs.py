@@ -92,7 +92,7 @@ def ask_pairs(max_attempts):
 
 def help():
     print("""Arguments must be passed in the order as shown:    [max_attempts]
-             - [max_attempts] is a int (default=100)""")
+             - [max_attempts] is a int (default=378)""")
 
 if(len(sys.argv) == 2 and sys.argv[1].isdigit()):
     ask_pairs(int(sys.argv[1]))
