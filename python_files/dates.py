@@ -1,6 +1,5 @@
 from datetime import datetime
 import math
-import numpy as np
 import random as rd
 import sys
 
@@ -31,7 +30,7 @@ def rd_date(min_year, max_year):
         rd_day = rd.randint(1,31)
     if rd_month in [4, 6, 9, 11]:
         rd_day = rd.randint(1,30)
-    if rd_month == 2:
+    else:
         rd_day = rd.randint(1, 28+offset)
     return [rd_day, rd_month, rd_year]
 
@@ -55,13 +54,13 @@ def ask_date(max_attempts, min_year, max_year):
         start_global = datetime.now()
         count = 0
         global_count = 0
-        for i in range(max_attempts):
+        for _ in range(max_attempts):
             date = rd_date(min_year, max_year)
             start = datetime.now()
             print_date(date)
             inp = input()
             try:
-                test_int = int(inp)
+                int(inp)
             except:
                 print("Attempt abortet! The correct weekday would have been:", weekdays[weekday(date)]+".", "Anchor:", str(anchor(date[2]))+".")
                 break
@@ -107,12 +106,12 @@ def average(values):
     if len(values) <= 2:
         return "To short for average."
     num_bad = number - num_dnf
-    for i in range(num_dnf):
+    for _ in range(num_dnf):
         values.remove("DNF")
     values.sort()
-    for i in range(num_bad):
+    for _ in range(num_bad):
         values.pop(-1)
-    for i in range(number):
+    for _ in range(number):
         values.pop(0)
     return round(sum(values)/len(values),2)
 

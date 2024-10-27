@@ -18,10 +18,10 @@ def calculation(operation, digit_1, digit_2, max_attempts):
     d_1 = "1"
     d_2 = "1"
     if digit_1 != 1:
-        for x in range(digit_1-1):
+        for _ in range(digit_1-1):
             d_1 += "0"
     if digit_2 != 1:
-        for x in range(digit_2-1):
+        for _ in range(digit_2-1):
             d_2 += "0"
     d_1 = int(d_1)
     d_2 = int(d_2)
@@ -45,7 +45,7 @@ def calculation(operation, digit_1, digit_2, max_attempts):
             start = dt.datetime.now()
             inp = input()
             try:
-                test_int = int(inp)
+                int(inp)
             except:
                 return print("Attempt abortet! The correct answer would have been:", str(calculate(a,b,operation))+".")
             if len(inp) == 0:
@@ -87,12 +87,12 @@ def average(values):
     if len(values) < 2:
         return "To short for average."
     num_bad = number - num_dnf
-    for i in range(num_dnf):
+    for _ in range(num_dnf):
         values.remove("DNF")
     values.sort()
-    for i in range(num_bad):
+    for _ in range(num_bad):
         values.pop(-1)
-    for i in range(number):
+    for _ in range(number):
         values.pop(0)
     return round(sum(values)/len(values),2)
 

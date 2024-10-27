@@ -70,7 +70,7 @@ def type_message():
 
 def create_key(key_length):
     key = ''
-    for i in range(key_length):
+    for _ in range(key_length):
         key += str(secrets.randbelow(10))
     key_file = open('/home/hiesl/shell_files/input_files/key.txt', 'w')
     key_file.write(key)

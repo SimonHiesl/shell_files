@@ -11,6 +11,11 @@ with open('/home/hiesl/shell_files/input_files/letterpairs.csv', newline='') as 
 pairs = [(row[i], row[i+1]) for i in range(0, len(row), 2)]
 rd.shuffle(pairs)
 
+def save_list_to_txt(input_list):
+    with open("/home/hiesl/shell_files/input_files/incorrect_letterpairs.txt", 'a') as file:
+        for item in input_list:
+            file.write(str(item) + '\n')
+
 def get_seconds(time):
     time_digits = list(str(time))
     return int(time_digits[0])*60*60+int(time_digits[2])*10*60+int(time_digits[3])*60+int(time_digits[5])*10+int(time_digits[6])+int(time_digits[8])*0.1+int(time_digits[9])*0.01
@@ -53,6 +58,7 @@ def ask_pairs(max_attempts):
     total = 0
     dnf_count = 0
     times = []
+    incorrect = []
     print("Push ENTER to start the timer!")
     inp = input()
     if len(inp) == 0:
@@ -72,6 +78,7 @@ def ask_pairs(max_attempts):
                 print("\033[31m" + pairs[i][1] + "\033[0m")
                 dnf_count += 1
                 times.append("DNF")
+                incorrect.append(pairs[i][0])
             elif time >= 3.0:
                 print("\033[33m" + pairs[i][1] + "\033[0m")
                 times.append(time)
@@ -89,6 +96,7 @@ def ask_pairs(max_attempts):
         print("To short for average.")
     else:
         print("Average of", total, "is", average(times), "seconds.")
+    save_list_to_txt(incorrect)
 
 def help():
     print("""Arguments must be passed in the order as shown:    [max_attempts]
