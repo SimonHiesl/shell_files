@@ -36,12 +36,12 @@ def average(values):
     if len(values) <= 2:
         return "To short for average."
     num_bad = number - num_dnf
-    for i in range(num_dnf):
+    for _ in range(num_dnf):
         values.remove("DNF")
     values.sort()
-    for i in range(num_bad):
+    for _ in range(num_bad):
         values.pop(-1)
-    for i in range(number):
+    for _ in range(number):
         values.pop(0)
     return round(sum(values)/len(values),2)
 

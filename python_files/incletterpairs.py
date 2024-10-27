@@ -1,24 +1,29 @@
-import numpy as np
 from datetime import datetime as dt
 import math
 import sys
+import csv
 
-table = np.genfromtxt("/home/hiesl/shell_files/input_files/pao.csv", delimiter=',', dtype= str)[:,1:]
-BLD = ['A', 'B', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X']
+with open('/home/hiesl/shell_files/input_files/letterpairs.csv', newline='') as csvfile:
+    reader = csv.reader(csvfile)
+    row = next(reader)
+
+pair_dict = {}
+for i in range(0, len(row), 2):
+    pair_dict[row[i]] = row[i+1]
 
 def read_list_from_txt():
     output_list = []
-    with open("/home/hiesl/shell_files/input_files/incorrect_pao.txt", 'r') as file:
+    with open("/home/hiesl/shell_files/input_files/incorrect_letterpairs.txt", 'r') as file:
         for line in file:
             output_list.append(line.strip())
     return output_list
 
 def clear_txt_file():
-    with open("/home/hiesl/shell_files/input_files/incorrect_pao.txt", 'w') as _:
+    with open("/home/hiesl/shell_files/input_files/incorrect_letterpairs.txt", 'w') as _:
         pass
 
 def save_list_to_txt(input_list):
-    with open("/home/hiesl/shell_files/input_files/incorrect_pao.txt", 'a') as file:
+    with open("/home/hiesl/shell_files/input_files/incorrect_letterpairs.txt", 'a') as file:
         for item in input_list:
             file.write(str(item) + '\n')
 
@@ -70,36 +75,29 @@ def ask_incorrects():
     inp = input()
     if len(inp) == 0:
         start_global = dt.now()
-        for i in range(len(inc_list)):
-            pair = inc_list[i]
-            n1 = BLD.index(pair[0])
-            n2 = BLD.index(pair[1])
-            print(pair)
+        for inc_pair in inc_list:
+            answer = pair_dict[inc_pair]
+            print(inc_pair)
             start = dt.now()
             inp = input()
             stop = dt.now()
             total += 1
             time = round(get_seconds(stop-start),2)
             if len(inp) != 0 and inp != "n":
-                for j in range(3):
-                    print(str(table[4*n1+j+1, n2]))
+                print(answer)
                 print(" ")
                 break
-            if inp == "n" or time >= 15.0:
-                for j in range(3):
-                    print("\033[31m" + str(table[4*n1+j+1, n2]) + "\033[0m")
+            if inp == "n" or time >= 6.0:
+                print("\033[31m" + answer + "\033[0m")
                 dnf_count += 1
                 times.append("DNF")
-                still_incorrect.append(pair)
-            elif time >= 10.0:
-                for j in range(3):
-                    print("\033[33m" + str(table[4*n1+j+1, n2]) + "\033[0m")
+                still_incorrect.append(inc_pair)
+            elif time >= 3.0:
+                print("\033[33m" + answer + "\033[0m")
                 times.append(time)
             else:
-                for j in range(3):
-                    print("\033[32m" + str(table[4*n1+j+1, n2]) + "\033[0m")
+                print("\033[32m" + answer + "\033[0m")
                 times.append(time)
-            print(" ")
             print("In", round(get_seconds(stop-start),2), "seconds.\n")
     else: return print("Attempt aborted!")
     stop_global = dt.now()
@@ -115,7 +113,7 @@ def ask_incorrects():
     save_list_to_txt(still_incorrect)
 
 def help():
-    print("""No arguments can be passed. This command just asks the incorrect pao pairs found in ~/.shell_files/input_files/incorrect_pao.txt.""")
+    print("""No arguments can be passed. This command just asks the incorrect letterpairs found in ~/.shell_files/input_files/incorrect_letterpairs.txt.""")
 
 if(len(sys.argv) == 1):
     ask_incorrects()

@@ -9,7 +9,7 @@ pi = str(np.genfromtxt("/home/hiesl/shell_files/input_files/pi.txt", dtype=str))
 def give_pao(n1, n2, place):
     return str(table[int(n1)+3*int(n1)+1+place, int(n2)])
 
-def Learn_Pi(skip=0, pao="0", max_digit=10000):
+def Learn_Pi(skip=0, pao=0, max_digit=10000):
     i = 1
     pos = skip
     total = 0

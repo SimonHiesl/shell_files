@@ -1,6 +1,5 @@
 import numpy as np
 import sys
-import random as rd
 
 wordsstring = ''.join(np.genfromtxt("/home/hiesl/shell_files/input_files/2309-wordle-words.txt", delimiter = " ", dtype=str))
 full_words = np.genfromtxt("/home/hiesl/shell_files/input_files/valid-wordle-words.txt", dtype=str)
