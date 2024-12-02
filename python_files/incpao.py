@@ -1,5 +1,6 @@
-import numpy as np
 from datetime import datetime as dt
+import random as rd
+import numpy as np
 import math
 import sys
 
@@ -19,6 +20,7 @@ def clear_txt_file():
 
 def save_list_to_txt(input_list):
     with open("/home/hiesl/shell_files/input_files/incorrect_pao.txt", 'a') as file:
+        rd.shuffle(input_list)
         for item in input_list:
             file.write(str(item) + '\n')
 

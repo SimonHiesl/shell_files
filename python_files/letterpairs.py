@@ -13,6 +13,7 @@ rd.shuffle(pairs)
 
 def save_list_to_txt(input_list):
     with open("/home/hiesl/shell_files/input_files/incorrect_letterpairs.txt", 'a') as file:
+        rd.shuffle(input_list)
         for item in input_list:
             file.write(str(item) + '\n')
 
