@@ -4,27 +4,129 @@ import random as rd
 import math
 import sys
 
-table = np.genfromtxt("/home/hiesl/shell_files/input_files/pao.csv", delimiter=',', dtype= str)[:,1:]
+input_file = "/home/hiesl/shell_files/input_files/pao.csv"
+save_file = "/home/hiesl/shell_files/input_files/incorrect_pao.txt"
+
 BLD = ['A', 'B', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X']
 
+WHITE = 37
+RED = 31
+GREEN = 32
+YELLOW = 33
+
+def get_rows(letter1, letter2):
+    rows = []
+    all_letters = BLD[BLD.index(letter1):BLD.index(letter2)+1]
+    for letter in all_letters:
+        for i in range(23):
+            rows.append(str(letter)+BLD[i])
+    rd.shuffle(rows)
+    return rows
+
+def get_columns(letter1, letter2):
+    columns = []
+    all_letters = BLD[BLD.index(letter1):BLD.index(letter2)+1]
+    for letter in all_letters:
+        for i in range(23):
+            columns.append(BLD[i]+str(letter))
+    rd.shuffle(columns)
+    return columns
+
+def ask_pao(all_pairs):
+    if not prompt_start():
+        return print("Attempt aborted!")
+    start_global = dt.now()
+    total_pairs, dnf_count, times, incorrect = process_pairs(all_pairs)
+    stop_global = dt.now()
+    total_time = stop_global - start_global
+    print_stats(total_pairs, dnf_count, times, total_time)
+    save_list_to_txt(incorrect)
+
+def prompt_start():
+    print("Push ENTER to start the timer!")
+    inp = input()
+    return len(inp) == 0
+
+def process_pairs(all_pairs):
+    total_pairs, dnf_count = 0, 0
+    times, incorrect = [], []
+    for pair in all_pairs:
+        total_pairs += 1
+        result = process_single_pair(pair)
+        if result is None:
+            break
+        dnf_count += result['dnf']
+        times.append(result['time'])
+        if result['incorrect']:
+            incorrect.append(pair)
+    return total_pairs, dnf_count, times, incorrect
+
+def process_single_pair(pair):
+    letter1, letter2 = str(pair[0]), str(pair[1])
+    print(pair)
+    start = dt.now()
+    inp = input()
+    stop = dt.now()
+    if inp and inp != "n":
+        print_table(letter1, letter2, WHITE, 0)
+        return None
+    time = round(get_seconds(stop - start), 2)
+    return evaluate_pair(letter1, letter2, time, inp)
+
+def evaluate_pair(letter1, letter2, time, inp):
+    if inp == "n" or time >= 7.0:
+        print_table(letter1, letter2, RED, time)
+        return {"time": "DNF", "dnf": 1, "incorrect": True}
+    elif time >= 4.0:
+        print_table(letter1, letter2, YELLOW, time)
+        return {"time": time, "dnf": 0, "incorrect": False}
+    else:
+        print_table(letter1, letter2, GREEN, time)
+        return {"time": time, "dnf": 0, "incorrect": False}
+
+def print_table(letter1, letter2, color, time):
+    index1 = BLD.index(letter1)
+    index2 = BLD.index(letter2)
+    for j in range(3):
+        content_line = table[4*index1 + j + 1, index2]
+        print(f"\033[{color}m" + str(content_line) + "\033[0m")
+    print(f"In {time} seconds.\n")
+
+def print_stats(total_pairs, dnf_count, times, total_time):
+    print(f"You reviewed {total_pairs} pairs.")
+    print(f"Of which {total_pairs-dnf_count} were correct.")
+    print(f"You took {format_time(get_seconds(total_time))}.")
+    avg = average(times)
+    if avg == "DNF":
+        print("The average is a DNF!")
+    elif avg == "To short for average.":
+        print("To short for average.")
+    else:
+        print("Average of", total_pairs, "is", avg, "seconds.")
+
 def save_list_to_txt(input_list):
-    with open("/home/hiesl/shell_files/input_files/incorrect_pao.txt", 'a') as file:
+    with open(save_file, 'a') as file:
         rd.shuffle(input_list)
         for item in input_list:
             file.write(str(item) + '\n')
 
 def get_seconds(time):
-    time_digits = list(str(time))
-    return int(time_digits[0])*60*60+int(time_digits[2])*10*60+int(time_digits[3])*60+int(time_digits[5])*10+int(time_digits[6])+int(time_digits[8])*0.1+int(time_digits[9])*0.01
+    digits = [int(c) for c in str(time) if c.isdigit()]
+    seconds = (
+        digits[0] * 3600 +
+        digits[1] * 600 +
+        digits[2] * 60 +
+        digits[3] * 10 +
+        digits[4] +
+        digits[5] * 0.1 +
+        digits[6] * 0.01
+    )
+    return seconds
 
-def get_minutes(time):
-    time_digits = list(str(time))
-    if time_digits[5] == "1" and time_digits[2] == "0":
-        return time_digits[3] + " minute and " + time_digits[5] + time_digits[6] + " seconds"
-    elif time_digits[2] == "0":
-        return time_digits[3] + " minutes and " + time_digits[5] + time_digits[6] + " seconds"
-    else:
-        return time_digits[2] + time_digits[3] + " minutes and " + time_digits[5] + time_digits[6] + " seconds"
+def format_time(seconds):
+    hours, remainder = divmod(seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    return f"{int(hours):02}:{int(minutes):02}:{seconds:05.2f}"
 
 def count_list(lst, x):
     count = 0
@@ -49,133 +151,22 @@ def average(values):
         values.pop(-1)
     for _ in range(number):
         values.pop(0)
-    return round(sum(values)/len(values),2)
-
-def ask_rows(column_start, column_end, max_attempts):
-    total = 0
-    dnf_count = 0
-    times = []
-    incorrect = []
-    ask_BLD = BLD[BLD.index(column_start):BLD.index(column_end)+1]
-    print("Push ENTER to start the timer!")
-    inp = input()
-    if len(inp) == 0:
-        start_global = dt.now()
-        for _ in range(max_attempts):
-            lp1 = rd.choice(ask_BLD)
-            lp2 = rd.choice(BLD)
-            n1 = BLD.index(lp1)
-            n2 = BLD.index(lp2)
-            pair = lp1 + lp2
-            print(pair)
-            start = dt.now()
-            inp = input()
-            stop = dt.now()
-            total += 1
-            time = round(get_seconds(stop-start),2)
-            if len(inp) != 0 and inp != "n":
-                for j in range(3):
-                    print(str(table[4*n1+j+1, n2]))
-                print(" ")
-                break
-            if inp == "n" or time >= 10.0:
-                for j in range(3):
-                    print("\033[31m" + str(table[4*n1+j+1, n2]) + "\033[0m")
-                dnf_count += 1
-                times.append("DNF")
-                incorrect.append(pair)
-            elif time >= 5.0:
-                for j in range(3):
-                    print("\033[33m" + str(table[4*n1+j+1, n2]) + "\033[0m")
-                times.append(time)
-            else:
-                for j in range(3):
-                    print("\033[32m" + str(table[4*n1+j+1, n2]) + "\033[0m")
-                times.append(time)
-            print(" ")
-            print("In", round(get_seconds(stop-start),2), "seconds.\n")
-    else: return print("Attempt aborted!")
-    stop_global = dt.now()
-    print("You reviewed", total, "pairs and got", total-dnf_count, "correct.")
-    print("You took " + get_minutes(stop_global-start_global) + ".")
-    if average(times) == "DNF":
-        print("The average is a DNF!")
-    elif average(times) == "To short for average.":
-        print("To short for average.")
-    else:
-        print("Average of", total, "is", average(times), "seconds.")
-    save_list_to_txt(incorrect)
-
-def ask_columns(column_start, column_end, max_attempts):
-    total = 0
-    dnf_count = 0
-    times = []
-    incorrect = []
-    ask_BLD = BLD[BLD.index(column_start):BLD.index(column_end)+1]
-    print("Push ENTER to start the timer!")
-    inp = input()
-    if len(inp) == 0:
-        start_global = dt.now()
-        for _ in range(max_attempts):
-            lp1 = rd.choice(BLD)
-            lp2 = rd.choice(ask_BLD)
-            n1 = BLD.index(lp1)
-            n2 = BLD.index(lp2)
-            pair = lp1 + lp2
-            print(pair)
-            start = dt.now()
-            inp = input()
-            stop = dt.now()
-            total += 1
-            time = round(get_seconds(stop-start),2)
-            if len(inp) != 0 and inp != "n":
-                for j in range(3):
-                    print(str(table[4*n1+j+1, n2]))
-                print(" ")
-                break
-            if inp == "n" or time >= 15.0:
-                for j in range(3):
-                    print("\033[31m" + str(table[4*n1+j+1, n2]) + "\033[0m")
-                dnf_count += 1
-                times.append("DNF")
-                incorrect.append(pair)
-            elif time >= 10.0:
-                for j in range(3):
-                    print("\033[33m" + str(table[4*n1+j+1, n2]) + "\033[0m")
-                times.append(time)
-            else:
-                for j in range(3):
-                    print("\033[32m" + str(table[4*n1+j+1, n2]) + "\033[0m")
-                times.append(time)
-            print(" ")
-            print("In", round(get_seconds(stop-start),2), "seconds.\n")
-    else: return print("Attempt aborted!")
-    stop_global = dt.now()
-    print("You reviewed", total, "pairs and got", total-dnf_count, "correct.")
-    print("You took " + get_minutes(stop_global-start_global) + ".")
-    if average(times) == "DNF":
-        print("The average is a DNF!")
-    elif average(times) == "To short for average.":
-        print("To short for average.")
-    else:
-        print("Average of", total, "is", average(times), "seconds.")
-    save_list_to_txt(incorrect)
-
-def ask_pao(start, end, max_attempts, line):
-    if line == "c":
-        return ask_columns(start, end, int(max_attempts))
-    elif line == "r":
-        return ask_rows(start, end, int(max_attempts))
-    else: help()
+    return round(sum(values)/len(values), 2)
 
 def help():
-    print("""Arguments must be passed in the order as shown:    [max_attempts] [letter_1] [letter_2] [column/row]
-             - [max_attempts] is a int (default=100)
+    print("""Arguments must be passed in the order as shown:    [letter_1] [letter_2] [column/row]
              - [letter_1] is a char in BLD (default=A).
              - [letter_2] is a char in BLD (default=X).
              - [column/row] is a char in {c,r} (default=c).""")
 
-if(len(sys.argv) == 5 and sys.argv[1].isdigit() and sys.argv[2] in BLD and sys.argv[3] in BLD and sys.argv[4] in ["c", "r"]):
-    ask_pao(sys.argv[2], sys.argv[3], sys.argv[1], sys.argv[4])
-else:
-    help()
+if __name__ == "__main__":
+    table = np.genfromtxt(input_file, delimiter=',', dtype= str)[:,1:]
+
+    if(len(sys.argv) == 4 and sys.argv[1] in BLD and sys.argv[2] in BLD and sys.argv[3] in ["c", "r"]):
+        if sys.argv[3] == "r":
+            all_pairs = get_rows(sys.argv[1], sys.argv[2])
+        else:
+            all_pairs = get_columns(sys.argv[1], sys.argv[2])
+        ask_pao(all_pairs)
+    else:
+        help()
