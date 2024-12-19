@@ -67,34 +67,34 @@ def process_single_pair(pair):
     start = dt.now()
     inp = input()
     stop = dt.now()
-    if inp and inp != "n":
-        print_table(letter1, letter2, WHITE, 0)
+    if inp and inp != "o":
+        print_table(letter1, letter2, WHITE)
         return None
     time = round(get_seconds(stop - start), 2)
     return evaluate_pair(letter1, letter2, time, inp)
 
 def evaluate_pair(letter1, letter2, time, inp):
-    if inp == "n" or time >= 7.0:
-        print_table(letter1, letter2, RED, time)
+    if inp == "o" or time >= 7.0:
+        print_table(letter1, letter2, RED)
         return {"time": "DNF", "dnf": 1, "incorrect": True}
     elif time >= 4.0:
-        print_table(letter1, letter2, YELLOW, time)
+        print_table(letter1, letter2, YELLOW)
         return {"time": time, "dnf": 0, "incorrect": False}
     else:
-        print_table(letter1, letter2, GREEN, time)
+        print_table(letter1, letter2, GREEN)
         return {"time": time, "dnf": 0, "incorrect": False}
 
-def print_table(letter1, letter2, color, time):
+def print_table(letter1, letter2, color):
     index1 = BLD.index(letter1)
     index2 = BLD.index(letter2)
     for j in range(3):
         content_line = table[4*index1 + j + 1, index2]
         print(f"\033[{color}m" + str(content_line) + "\033[0m")
-    print(f"In {time} seconds.\n")
+    print("")
 
 def print_stats(total_pairs, dnf_count, times, total_time):
-    print(f"You reviewed {total_pairs} pairs.")
-    print(f"Of which {total_pairs-dnf_count} were correct.")
+    accuracy = get_accuracy(total_pairs, dnf_count)
+    print(f"You got {total_pairs-dnf_count}/{total_pairs} pairs correct ({accuracy}%).")
     print(f"You took {format_time(get_seconds(total_time))}.")
     avg = average(times)
     if avg == "DNF":
@@ -103,6 +103,10 @@ def print_stats(total_pairs, dnf_count, times, total_time):
         print("To short for average.")
     else:
         print("Average of", total_pairs, "is", avg, "seconds.")
+
+def get_accuracy(total_pairs, dnf_count):
+    accuracy = (total_pairs-dnf_count)/total_pairs
+    return round(100*accuracy, 1)
 
 def get_seconds(time):
     digits = [int(c) for c in str(time) if c.isdigit()]
@@ -157,6 +161,9 @@ if __name__ == "__main__":
 
     if(len(sys.argv) == 1):
         all_pairs = read_list_from_txt()
-        ask_pao(all_pairs)
+        if all_pairs:
+            ask_pao(all_pairs)
+        else:
+            print("""Incorrect pao list is empty.""")
     else:
         help()
